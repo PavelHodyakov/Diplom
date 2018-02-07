@@ -27,6 +27,7 @@ public class MessengerFeatures {
 
     @POST
     @Path("/registry")
+
     public String checkIn(String system) throws JSONException {
         JSONObject obj = new JSONObject(system);
         String fname = obj.getString("fname");
