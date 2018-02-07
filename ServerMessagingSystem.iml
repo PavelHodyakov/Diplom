@@ -14,6 +14,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Hibernate 5.2.12-5.2.12" level="project" />
+    <orderEntry type="module" module-name="DateBase" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.1.1.jre7" level="project" />
     <orderEntry type="library" name="Maven: io.undertow:undertow-core:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.xnio:xnio-api:3.3.0.Final" level="project" />
@@ -38,5 +39,6 @@
     <orderEntry type="library" name="Maven: org.json:org.json:chargebee-1.0" level="project" />
     <orderEntry type="library" name="Maven: javax:javaee-web-api:7.0" level="project" />
     <orderEntry type="library" name="Maven: np.com.axhixh:resteasy-bootstrap:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.diplom:DateBase:1.0-SNAPSHOT" level="project" />
   </component>
 </module>

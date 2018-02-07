@@ -10,7 +10,6 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>DateBase</module>
-        <module>DateBase</module>
     </modules>
     <dependencies>
         <dependency>
@@ -56,6 +55,11 @@
         <dependency>
             <groupId>np.com.axhixh</groupId>
             <artifactId>resteasy-bootstrap</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.diplom</groupId>
+            <artifactId>DateBase</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--<dependency>-->

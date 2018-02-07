@@ -9,9 +9,9 @@
         <module name="DateBase" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="DateBase" target="1.5" />
-      <module name="ServerMessagingSystem" target="1.5" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="DateBase" target="1.8" />
+      <module name="ServerMessagingSystem" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

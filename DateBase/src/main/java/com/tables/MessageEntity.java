@@ -11,6 +11,7 @@ public class MessageEntity {
     private Date date;
     private Boolean delivConfRequest;
     private Boolean confReading;
+    private long senderSystemId;
 
     @Id
     @Column(name = "message_id")
@@ -62,6 +63,16 @@ public class MessageEntity {
         this.confReading = confReading;
     }
 
+    @Basic
+    @Column(name = "sender_system_id")
+    public long getSenderSystemId() {
+        return senderSystemId;
+    }
+
+    public void setSenderSystemId(long senderSystemId) {
+        this.senderSystemId = senderSystemId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,6 +81,7 @@ public class MessageEntity {
         MessageEntity that = (MessageEntity) o;
 
         if (messageId != that.messageId) return false;
+        if (senderSystemId != that.senderSystemId) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
         if (delivConfRequest != null ? !delivConfRequest.equals(that.delivConfRequest) : that.delivConfRequest != null)
@@ -86,6 +98,7 @@ public class MessageEntity {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (delivConfRequest != null ? delivConfRequest.hashCode() : 0);
         result = 31 * result + (confReading != null ? confReading.hashCode() : 0);
+        result = 31 * result + (int) (senderSystemId ^ (senderSystemId >>> 32));
         return result;
     }
 }

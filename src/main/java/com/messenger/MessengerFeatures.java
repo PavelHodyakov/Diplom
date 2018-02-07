@@ -1,9 +1,17 @@
 package com.messenger;
+import com.operations.OperationsWithDateBase;
+import org.json.JSONException;
+import org.json.JSONObject;
+import sun.rmi.runtime.Log;
+
+import javax.servlet.FilterRegistration;
 import javax.ws.rs.GET;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
+
+
 
 @Path("/features")
 public class MessengerFeatures {
@@ -19,9 +27,22 @@ public class MessengerFeatures {
 
     @POST
     @Path("/registry")
-    public boolean checkIn(String system){
+    public String checkIn(String system) throws JSONException {
+        JSONObject obj = new JSONObject(system);
+        String fname = obj.getString("fname");
+        String sname = obj.getString("sname");
+        String login = obj.getString("login");
+        String password = obj.getString("password");
+        String department = obj.getString("department");
+        String mail = null;
+        String telegram = null;
+        String address = null;
+        OperationsWithDateBase DB = new OperationsWithDateBase();
 
-        return false;
+        String res = DB.registry(fname,sname,login,password,department,mail,
+                telegram,address);
+        System.out.println("result "+ res);
+        return res;
     }
 
     @POST

@@ -6,6 +6,8 @@ import javax.persistence.*;
 @Table(name = "message_base", schema = "public", catalog = "Messenger")
 public class MessageBaseEntity {
     private long messageBaseId;
+    private long recipientSystemId;
+    private long messageMessageId;
     private Boolean delivered;
     private Boolean read;
 
@@ -17,6 +19,26 @@ public class MessageBaseEntity {
 
     public void setMessageBaseId(long messageBaseId) {
         this.messageBaseId = messageBaseId;
+    }
+
+    @Basic
+    @Column(name = "recipient_system_id")
+    public long getRecipientSystemId() {
+        return recipientSystemId;
+    }
+
+    public void setRecipientSystemId(long recipientSystemId) {
+        this.recipientSystemId = recipientSystemId;
+    }
+
+    @Basic
+    @Column(name = "message_message_id")
+    public long getMessageMessageId() {
+        return messageMessageId;
+    }
+
+    public void setMessageMessageId(long messageMessageId) {
+        this.messageMessageId = messageMessageId;
     }
 
     @Basic
@@ -47,6 +69,8 @@ public class MessageBaseEntity {
         MessageBaseEntity that = (MessageBaseEntity) o;
 
         if (messageBaseId != that.messageBaseId) return false;
+        if (recipientSystemId != that.recipientSystemId) return false;
+        if (messageMessageId != that.messageMessageId) return false;
         if (delivered != null ? !delivered.equals(that.delivered) : that.delivered != null) return false;
         if (read != null ? !read.equals(that.read) : that.read != null) return false;
 
@@ -56,6 +80,8 @@ public class MessageBaseEntity {
     @Override
     public int hashCode() {
         int result = (int) (messageBaseId ^ (messageBaseId >>> 32));
+        result = 31 * result + (int) (recipientSystemId ^ (recipientSystemId >>> 32));
+        result = 31 * result + (int) (messageMessageId ^ (messageMessageId >>> 32));
         result = 31 * result + (delivered != null ? delivered.hashCode() : 0);
         result = 31 * result + (read != null ? read.hashCode() : 0);
         return result;
