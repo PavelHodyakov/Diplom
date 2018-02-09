@@ -1,16 +1,12 @@
 package com.messenger;
 import com.operations.OperationsWithDateBase;
+import org.apache.http.entity.ContentType;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sun.rmi.runtime.Log;
 
 import javax.servlet.FilterRegistration;
-import javax.ws.rs.GET;
-
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
-
+import javax.ws.rs.*;
 
 
 @Path("/features")
@@ -21,13 +17,12 @@ public class MessengerFeatures {
     @GET
     @Path("/login")
     public boolean login(String system){
-
         return false;
     }
 
     @POST
     @Path("/registry")
-
+    //@Consumes(value="application/json")
     public String checkIn(String system) throws JSONException {
         JSONObject obj = new JSONObject(system);
         String fname = obj.getString("fname");

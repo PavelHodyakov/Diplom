@@ -33,8 +33,8 @@ public class OperationsWithDateBase {
 
             //проверку на существование отдела делать не надо, т.к.
             //предполагается выпадающий список отделов
-            em.persist(new SystemEntity(login, password, sname,
-                    fname, idDepartment, address, mail, telegram));
+            em.persist(new SystemEntity(login, password, fname,
+                    sname, idDepartment, address, mail, telegram));
             //em.flush();
             em.getTransaction().commit();
           }catch(Exception e){
