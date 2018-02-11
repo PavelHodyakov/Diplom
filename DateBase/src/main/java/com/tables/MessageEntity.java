@@ -13,7 +13,19 @@ public class MessageEntity {
     private Boolean confReading;
     private long senderSystemId;
 
+    public MessageEntity(String content, Date date, Boolean delivConfRequest, Boolean confReading, long senderSystemId) {
+        this.content = content;
+        this.date = date;
+        this.delivConfRequest = delivConfRequest;
+        this.confReading = confReading;
+        this.senderSystemId = senderSystemId;
+    }
+
+    public MessageEntity() {
+    }
+
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_message_sequence")
     @Column(name = "message_id")
     public long getMessageId() {
         return messageId;

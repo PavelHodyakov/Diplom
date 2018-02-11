@@ -11,7 +11,18 @@ public class MessageBaseEntity {
     private Boolean delivered;
     private Boolean read;
 
+    public MessageBaseEntity(long recipientSystemId, long messageMessageId, Boolean delivered, Boolean read) {
+        this.recipientSystemId = recipientSystemId;
+        this.messageMessageId = messageMessageId;
+        this.delivered = delivered;
+        this.read = read;
+    }
+
+    public MessageBaseEntity() {
+    }
+
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_base_sequence")
     @Column(name = "message_base_id")
     public long getMessageBaseId() {
         return messageBaseId;

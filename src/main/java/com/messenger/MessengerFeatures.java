@@ -7,6 +7,7 @@ import sun.rmi.runtime.Log;
 
 import javax.servlet.FilterRegistration;
 import javax.ws.rs.*;
+import java.util.Date;
 
 
 @Path("/features")
@@ -16,14 +17,17 @@ public class MessengerFeatures {
     * анализ на ошибки пользователя лучше делать на клиенте*/
     @GET
     @Path("/login")
-    public boolean login(String system){
-        return false;
+    public String login(@QueryParam("name") String name, @QueryParam("password") String password) throws JSONException {
+//
+        OperationsWithDateBase operationsWithDateBase = new OperationsWithDateBase();
+        return operationsWithDateBase.login(name, password);
+
     }
 
     @POST
     @Path("/registry")
-    //@Consumes(value="application/json")
     public String checkIn(String system) throws JSONException {
+
         JSONObject obj = new JSONObject(system);
         String fname = obj.getString("fname");
         String sname = obj.getString("sname");
@@ -34,30 +38,37 @@ public class MessengerFeatures {
         String telegram = null;
         String address = null;
         OperationsWithDateBase DB = new OperationsWithDateBase();
-
         String res = DB.registry(fname,sname,login,password,department,mail,
                 telegram,address);
         System.out.println("result "+ res);
         return res;
+
     }
 
     @POST
     @Path("/send")
-    public void sendMessage(String message){
+    public void sendMessage(String jsonMessage) throws JSONException {
+        JSONObject message = new JSONObject(jsonMessage);
+        String sender = message.getString("sender");
+        String content = message.getString("content");
+        Date departureDate = (Date) message.get("date");
+        boolean deliveryConfirmationRequest = message.getBoolean("delivery");
+        boolean confirmationReading = message.getBoolean("reading");
+
 
     }
 
 //    id можно передавать и как параметр запроса
 //    если не сработает, то передаем как json
     @POST
-    @Path("/mbyid")
+    @Path("/messagebyid")
     public String receivingMessagesById(@QueryParam("id") String id){
 
         return "";
     }
 
     @POST
-    @Path("/mbylogin")
+    @Path("/messagebylogin")
     public String receivingMessagesByLogin(@QueryParam("login") String login){
 
         return "";
