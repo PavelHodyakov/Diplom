@@ -1,19 +1,19 @@
 package com.tables;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "message", schema = "public", catalog = "Messenger")
 public class MessageEntity {
     private long messageId;
     private String content;
-    private Date date;
+    private Timestamp date;
     private Boolean delivConfRequest;
     private Boolean confReading;
     private long senderSystemId;
 
-    public MessageEntity(String content, Date date, Boolean delivConfRequest, Boolean confReading, long senderSystemId) {
+    public MessageEntity(String content, Timestamp date, Boolean delivConfRequest, Boolean confReading, long senderSystemId) {
         this.content = content;
         this.date = date;
         this.delivConfRequest = delivConfRequest;
@@ -25,7 +25,8 @@ public class MessageEntity {
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_message_sequence")
+    @SequenceGenerator(name="pk_sequence",sequenceName="department_id_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
     @Column(name = "message_id")
     public long getMessageId() {
         return messageId;
@@ -47,11 +48,11 @@ public class MessageEntity {
 
     @Basic
     @Column(name = "date")
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

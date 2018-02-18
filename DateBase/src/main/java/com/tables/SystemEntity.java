@@ -33,6 +33,8 @@ public class SystemEntity {
     }
 
     @Id
+//    @SequenceGenerator(name="pk_sequence",sequenceName="system_id_seq", allocationSize=1)
+//    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
     @SequenceGenerator(name="pk_sequence",sequenceName="system_id_seq", allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
     @Column(name = "system_id")

@@ -3,10 +3,13 @@ package com.operations;
 import com.tables.MessageBaseEntity;
 import com.tables.MessageEntity;
 import com.tables.SystemEntity;
+import org.json.JSONArray;
 
+import javax.json.JsonArray;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.validation.constraints.Null;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,22 +60,22 @@ public class OperationsWithDateBase {
         return "true";
     }
 
-    public void sendMessage(String content, String sender, Date departureDate, boolean delivery
-    , boolean read, ArrayList<String> owners){
+    public void sendMessage(String content, String sender, Timestamp departureDate, boolean delivery
+    , boolean read, JSONArray owners){
         try {
             em.getTransaction().begin();
 //            int idSystem = (int) em.createQuery("Select systemId from SystemEntity where" +
 //                    "(login= :login)").setParameter("login", sender).getResultList().get(0);
             int idSender = getSystemId(sender);
-            MessageEntity ME = new MessageEntity(content, (java.sql.Date) departureDate, delivery, read, idSender);
+            MessageEntity ME = new MessageEntity(content, departureDate, delivery, read, idSender);
             em.persist(ME);
             em.flush();
             int idMessage = (int) ME.getMessageId();
 
-            for(int i=0;i<owners.size();i++){
+            for(int i=0;i<owners.length();i++){
 //                idSystem = (int) em.createQuery("Select systemId from SystemEntity where" +
 //                        "(login= :login)").setParameter("login", sender).getResultList().get(0);
-                int idOwner = getSystemId(owners.get(i));
+                int idOwner = getSystemId(owners.getString(i));
                 boolean delivReq;
                 if(delivery == true){
                     delivReq = true;
@@ -96,10 +99,10 @@ public class OperationsWithDateBase {
     }
     private int getSystemId(String login){
 
-        em.getTransaction().begin();
+        //em.getTransaction().begin();
         int id = (int) em.createQuery("Select systemId from SystemEntity where" +
                     "(login= :login)").setParameter("login", login).getResultList().get(0);
-        em.close();
+        //em.close();
         return id;
 
     }

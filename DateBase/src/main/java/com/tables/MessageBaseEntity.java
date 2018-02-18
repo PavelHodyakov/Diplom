@@ -22,7 +22,8 @@ public class MessageBaseEntity {
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_base_sequence")
+    @SequenceGenerator(name="pk_sequence",sequenceName="message_base_id_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
     @Column(name = "message_base_id")
     public long getMessageBaseId() {
         return messageBaseId;

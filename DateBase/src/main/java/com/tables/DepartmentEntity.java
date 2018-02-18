@@ -10,6 +10,8 @@ public class DepartmentEntity {
     private int accessLevel;
 
     @Id
+    @SequenceGenerator(name="pk_sequence",sequenceName="department_id_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
     @Column(name = "department_id")
     public int getDepartmentId() {
         return departmentId;
