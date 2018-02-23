@@ -7,6 +7,7 @@
         <class>com.tables.MessageEntity</class>
         <class>com.tables.MessageBaseEntity</class>
         <class>com.tables.SystemEntity</class>
+        <class>com.tables.HeadDepartmentEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/Messenger"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
