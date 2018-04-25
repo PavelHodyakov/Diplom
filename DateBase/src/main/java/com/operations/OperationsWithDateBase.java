@@ -1,22 +1,24 @@
 package com.operations;
 
-import com.tables.MessageBaseEntity;
+import com.tables.BaseMessageEntity;
 import com.tables.MessageEntity;
 import com.tables.SystemEntity;
 import org.json.JSONArray;
 
-import javax.json.JsonArray;
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import javax.validation.constraints.Null;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
 
 public class OperationsWithDateBase {
    private EntityManager em= Persistence.createEntityManagerFactory("Entities").createEntityManager();
 
+   //@PersistenceContext(unitName = "Entities", type = PersistenceContextType.EXTENDED)
+    //private EntityManager em;
     public String login(String login, String password) {
         try {
             em.getTransaction().begin();
@@ -30,6 +32,7 @@ public class OperationsWithDateBase {
                 return "false";
             }
         } catch (Exception e){
+            System.out.println("Exception: "+ e);
             em.close();
             return "false";
         }finally{
@@ -66,8 +69,9 @@ public class OperationsWithDateBase {
             em.getTransaction().begin();
 //            int idSystem = (int) em.createQuery("Select systemId from SystemEntity where" +
 //                    "(login= :login)").setParameter("login", sender).getResultList().get(0);
-            int idSender = getSystemId(sender);
-            MessageEntity ME = new MessageEntity(content, departureDate, delivery, read, idSender);
+            //int idSender = getSystemId(sender);
+            //Изменился конструктор
+            MessageEntity ME = new MessageEntity(content, departureDate, delivery, read, sender, null);
             em.persist(ME);
             em.flush();
             int idMessage = (int) ME.getMessageId();
@@ -75,20 +79,22 @@ public class OperationsWithDateBase {
             for(int i=0;i<owners.length();i++){
 //                idSystem = (int) em.createQuery("Select systemId from SystemEntity where" +
 //                        "(login= :login)").setParameter("login", sender).getResultList().get(0);
-                int idOwner = getSystemId(owners.getString(i));
+                String owner = owners.getString(i);
+                //Error: записывает в БД не null а false
                 boolean delivReq;
                 if(delivery == true){
-                    delivReq = true;
+                    delivReq = false;//т.к. условия не выполнены
                 } else{
-                    delivReq = Boolean.parseBoolean(null);
+                    //delivReq = new Boolean(null);//Boolean.parseBoolean(null);//т.к. не надо выполнять условия
                 }
                 boolean readReq;
                 if(read == true){
-                    readReq = true;
+                    readReq = false;// т.к. условия не выполнены
                 } else{
-                    readReq = Boolean.parseBoolean(null);
+                    //readReq = Boolean.parseBoolean(null);//т.к. не надо выполнять условия
                 }
-                em.persist(new MessageBaseEntity(idOwner, idMessage , delivReq, readReq));
+                //Изменился конструктор
+                em.persist(new BaseMessageEntity(idMessage, owner , null, null));
             }
         em.getTransaction().commit();
         }catch (Exception e){

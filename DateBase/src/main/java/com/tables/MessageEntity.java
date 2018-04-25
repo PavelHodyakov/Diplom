@@ -11,21 +11,20 @@ public class MessageEntity {
     private Timestamp date;
     private Boolean delivConfRequest;
     private Boolean confReading;
-    private long senderSystemId;
+    private String sender;
+    private String files;
 
-    public MessageEntity(String content, Timestamp date, Boolean delivConfRequest, Boolean confReading, long senderSystemId) {
+    public MessageEntity(String content, Timestamp date, Boolean delivConfRequest, Boolean confReading, String sender, String files) {
         this.content = content;
         this.date = date;
         this.delivConfRequest = delivConfRequest;
         this.confReading = confReading;
-        this.senderSystemId = senderSystemId;
-    }
-
-    public MessageEntity() {
+        this.sender = sender;
+        this.files = files;
     }
 
     @Id
-    @SequenceGenerator(name="pk_sequence",sequenceName="department_id_seq", allocationSize=1)
+    @SequenceGenerator(name="pk_sequence",sequenceName="message_id_seq", allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
     @Column(name = "message_id")
     public long getMessageId() {
@@ -77,13 +76,13 @@ public class MessageEntity {
     }
 
     @Basic
-    @Column(name = "sender_system_id")
-    public long getSenderSystemId() {
-        return senderSystemId;
+    @Column(name = "sender")
+    public String getSender() {
+        return sender;
     }
 
-    public void setSenderSystemId(long senderSystemId) {
-        this.senderSystemId = senderSystemId;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     @Override
@@ -94,12 +93,12 @@ public class MessageEntity {
         MessageEntity that = (MessageEntity) o;
 
         if (messageId != that.messageId) return false;
-        if (senderSystemId != that.senderSystemId) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
         if (delivConfRequest != null ? !delivConfRequest.equals(that.delivConfRequest) : that.delivConfRequest != null)
             return false;
         if (confReading != null ? !confReading.equals(that.confReading) : that.confReading != null) return false;
+        if (sender != null ? !sender.equals(that.sender) : that.sender != null) return false;
 
         return true;
     }
@@ -111,7 +110,17 @@ public class MessageEntity {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (delivConfRequest != null ? delivConfRequest.hashCode() : 0);
         result = 31 * result + (confReading != null ? confReading.hashCode() : 0);
-        result = 31 * result + (int) (senderSystemId ^ (senderSystemId >>> 32));
+        result = 31 * result + (sender != null ? sender.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "files")
+    public String getFiles() {
+        return files;
+    }
+
+    public void setFiles(String files) {
+        this.files = files;
     }
 }
